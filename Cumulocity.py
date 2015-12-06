@@ -110,7 +110,7 @@ class CumulocityUtils(object):
         config.set(section,'username', self.username)
         config.set(section,'password', self.password)
 
-        with open('app.cfg', 'wb') as configfile:
+        with open('app.cfg', 'w') as configfile:
             config.write(configfile)
 
     '''
