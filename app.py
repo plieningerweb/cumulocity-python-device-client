@@ -197,17 +197,19 @@ def measureDataUsage(cumulocity):
 
             monthly_kib = floor(human2bytes(monthly) / 1024)
 
-            data = {
-                "type": "traffic",
-                "traffic": {
-                    "monthly_eth0": {
-                        "value": monthly,
-                        "unit": "KByte"
-                        }
-                    }
+    else:
+        monthly_kib= 0
+    data = {
+        "type": "traffic",
+        "traffic": {
+            "monthly_eth0": {
+                "value": monthly_kib,
+                "unit": "KByte"
+                }
             }
+    }
 
-            #cumulocity.addMeasurement(data)
+    cumulocity.addMeasurement(data)
 
 def getRPIserial():
     # Extract serial from cpuinfo file
