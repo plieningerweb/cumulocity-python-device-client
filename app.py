@@ -209,13 +209,27 @@ def measureDataUsage(cumulocity):
 
             #cumulocity.addMeasurement(data)
 
+def getRPIserial():
+    # Extract serial from cpuinfo file
+    cpuserial = "0000000000000000"
+    try:
+        f = open('/proc/cpuinfo','r')
+        for line in f:
+            if line[0:6]=='Serial':
+                cpuserial = line[10:26]
+        f.close()
+    except:
+        cpuserial = "ERROR000000000"
+
+    return cpuserial
+
 def main():
     import logging
     logging.basicConfig(level=logging.DEBUG)
 
     #load with unique id of this device
     #e.g. a serial number or something else...
-    c = Cumulocity('apl-pv-1')
+    c = Cumulocity('rpi-'+getRPIserial())
 
     #set operation handler
     c.operations_handler = OperationHandler()
