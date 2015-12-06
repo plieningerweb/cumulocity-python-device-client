@@ -101,8 +101,8 @@ class CumulocityUtils(object):
             return False
 
     def writeConfig(self):
-        import ConfigParser
-        config = ConfigParser.RawConfigParser()
+        import configparser
+        config = configparser.RawConfigParser()
 
         section = self.CONFIG_SECTION
         config.add_section(section)
