@@ -134,6 +134,8 @@ def measure(cumulocity):
     }
     cumulocity.addMeasurement(data)
 
+    measureDataUsage(cumulocity)
+
 def human2bytes(s):
     """
     >>> human2bytes('1M')
@@ -169,6 +171,7 @@ def getMonthlyDataUsage():
     #check if not empty
     try:
         if out:
+            out = out.decode('utf-8')
             #get 11.field (monthly datatransfer on interface
             ps = out.split(';')
             if len(ps) >= 12:
@@ -184,26 +187,11 @@ def getMonthlyDataUsage():
 
 
 def measureDataUsage(cumulocity):
-    from subprocess import check_output
-
-    out = check_output(['vnstat' '-i eth0 --oneline'])
-
-    #check if not empty
-    if out:
-        #get 11.field (monthly datatransfer on interface
-        ps = out.split(';')
-        if len(ps) >= 12:
-            monthly = ps[10]
-
-            monthly_kib = floor(human2bytes(monthly) / 1024)
-
-    else:
-        monthly_kib= 0
     data = {
         "type": "traffic",
         "traffic": {
             "monthly_eth0": {
-                "value": monthly_kib,
+                "value": getMonthlyDataUsage(),
                 "unit": "KByte"
                 }
             }
