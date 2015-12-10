@@ -164,7 +164,7 @@ def getMonthlyDataUsage():
     from subprocess import check_output
     from math import floor
 
-    out = check_output(['/usr/bin/vnstat','-i', 'eth0', '--oneline'])
+    out = check_output(['/usr/bin/vnstat','-i', 'eth1', '--oneline'])
 
     monthly_kib = -1
 
@@ -190,7 +190,7 @@ def measureDataUsage(cumulocity):
     data = {
         "type": "traffic",
         "traffic": {
-            "monthly_eth0": {
+            "monthly_eth1": {
                 "value": getMonthlyDataUsage(),
                 "unit": "KByte"
                 }
@@ -247,7 +247,7 @@ def main():
                 #not implemented
 
                 #wait short moment to repeat cycle
-                time.sleep(5)
+                time.sleep(30)
 
 if __name__ == "__main__":
     main()
