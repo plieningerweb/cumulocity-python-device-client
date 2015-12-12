@@ -5,5 +5,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "dir is $DIR"
 
 cd $DIR/../
-exec python3 app.py
+exec setuidgid pi python3 app.py
 
