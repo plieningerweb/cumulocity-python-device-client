@@ -54,7 +54,12 @@ class CumulocityUtils(object):
                 auth=self.getAuth(auth), data=json.dumps(jsonPayload))
 
     def readCumulocityConfig(self):
-        import configparser
+        try:
+            # 3.x name
+            import configparser
+        except ImportError:
+            # 2.x name
+            import ConfigParser as configparser
 
         try:
             config = configparser.RawConfigParser()
@@ -82,7 +87,12 @@ class CumulocityUtils(object):
             return False
 
     def readAppConfig(self):
-        import configparser
+        try:
+            # 3.x name
+            import configparser
+        except ImportError:
+            # 2.x name
+            import ConfigParser as configparser
 
         try:
             config = configparser.RawConfigParser()
@@ -101,7 +111,13 @@ class CumulocityUtils(object):
             return False
 
     def writeConfig(self):
-        import configparser
+        try:
+            # 3.x name
+            import configparser
+        except ImportError:
+            # 2.x name
+            import ConfigParser as configparser
+
         config = configparser.RawConfigParser()
 
         section = self.CONFIG_SECTION
