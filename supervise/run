@@ -1,9 +1,12 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#supervise will cd into this folder
+#so realtive folder is ok
+cd ../
 
-echo "dir is $DIR"
+#redirect errors to standard output
+exec 2>&1
 
-cd $DIR/../
-exec python3 app.py
+#run as root
+exec python app.py
 

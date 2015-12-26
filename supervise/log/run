@@ -1,2 +1,13 @@
 #!/bin/sh
-exec multilog t /tmp/cumulocity.log
+
+#reroute stderr to stdout
+exec 2>&1
+
+#set user to pi and 
+
+#s1000000: set file size to about 1MB and then rotate it
+#n5: keep 5 rorated logs
+#'!tai64nlocal' run command after archiving file, this will convert timestamps to human redable ones
+#prepend '!gzip' to the directory will gzip archived files
+
+exec setuidgid pi /usr/bin/multilog t s1000000 n5 '!tai64nlocal' /tmp/cumulocity-log
