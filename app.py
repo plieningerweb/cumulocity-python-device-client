@@ -235,13 +235,23 @@ def main():
             #repeat cycle phase
             for i in range(1,200):
                 #execute operations
-                c.dispatchOperations()
+                try:
+                    c.dispatchOperations()
+                except Exception as e:
+                    import traceback
+                    trace = traceback.format_exc()
+                    c.addError(trace)
 
                 #update inventory
                 #is not implemented
                 
                 #send measurements
-                measure(c)
+                try:
+                    measure(c)
+                except Exception as e:
+                    import traceback
+                    trace = traceback.format_exc()
+                    c.addError(trace)
 
                 #send events
                 #not implemented

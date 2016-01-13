@@ -294,6 +294,50 @@ class Cumulocity(CumulocityUtils):
             raise Exception("could not create measurement")
 
 
+    def addError(self,error_msg):
+        self.logger.info("add device error: " + error_msg)
+
+        import datetime
+        payload = {
+            "type" : "error",
+            "time": datetime.datetime.utcnow().isoformat()+"+00:00",
+            "source": { "id": self.device_id },
+            "text" : error_msg,
+            "status" : "ACTIVE",
+            "severity" : "MAJOR",
+        }
+        self.addAlarm(payload)
+
+
+    def addAlarm(self,payload):
+        """
+        add alarm to backend
+
+        payload must at least contain:
+        {
+            "type" : "error",
+            "time": datetime.datetime.utcnow().isoformat()+"+00:00",
+            "source": { "id": self.device_id },
+            "text" : error_msg,
+            "status" : "ACTIVE",
+            "severity" : "MAJOR",
+        }
+        """
+
+        url = "/alarm/alarms"
+
+        headers = {
+            'Content-Type':'application/vnd.com.nsn.cumulocity.alarm+json'
+        }
+
+        response = self.postRequest(url,payload)
+        
+        if response.status_code == 201:
+            self.logger.info("device alarm added")
+        else:
+            raise Exception("could not add device alarm")
+
+
 
     def addIdentifyDeviceBySerial(self):
         url = "/identity/globalIds/" + self.device_id + "/externalIds"
