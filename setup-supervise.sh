@@ -14,7 +14,7 @@ apt-get -y install daemontools daemontools-run
 
 APP_FOLDER="$MYDIR"
 
-update-service --add "$APP_FOLDER"  watch-hardware-reset 
+update-service --add "$APP_FOLDER" cumulocity-client
 
 #start supervise and application
 svc -u "$APP_FOLDER"
