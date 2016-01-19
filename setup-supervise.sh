@@ -12,7 +12,7 @@ echo "app directory is $MYDIR"
 
 apt-get -y install daemontools daemontools-run
 
-APP_FOLDER="$MYDIR"
+APP_FOLDER="$MYDIR/supervise/"
 
 update-service --add "$APP_FOLDER" cumulocity-client
 
